@@ -1,0 +1,107 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Cart
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!--page heading-->
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Cart</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content>
+    <ion-card >
+      <ion-card-header>
+        <ion-thumbnail slot="start">
+          <!--Image of restaurant-->
+          <img src="{{cartitems.Restaurant.image}}" />
+        </ion-thumbnail>
+        <ion-label>
+          <p>      
+            <ion-icon name="menu" size="medium" style="padding-right: 0.5cm;"></ion-icon>
+              Any instructions? We will try our best</p>
+        </ion-label>
+      </ion-card-header>
+     <ion-card-content>
+
+      <!--order amount from home page-->
+      <ion-item>
+        <ion-label>
+          <ion-text color="primary" style="font-size: 16px;">Bill Details</ion-text> <br>
+          <p>Restaurant: {{cartitems.Restaurant.name}} <!--amount from home page --> </p>
+          <p>Item Total: {{cartitems.Restaurant.price}} <!--amount from home page --> </p>
+          <p>Devlivery: R50 <!--hard code culculation--> </p>
+      </ion-label>
+      </ion-item>
+
+      <!--total-->
+      <ion-item>
+        <ion-label>
+          <ion-toolbar>
+            <ion-text color="primary" style="font-size: 16px;">To pay: {{cartitems.Restaurant.price + 50}}</ion-text>
+            <!--<ion-button slot="primary" onclick="clearCart()" fill="outline">Clear cart</ion-button>-->
+          </ion-toolbar>          
+        </ion-label>
+      </ion-item>
+
+     </ion-card-content>
+    </ion-card>   
+    <ion-card>
+      <!--confirm adress-->
+        <ion-item >
+          <ion-toolbar>
+            <!--<ion-button size="medium" slot="secondary">Change Address</ion-button>-->
+            
+            <p style="font-size: 16px;">
+              <ion-icon name="home" size="medium" style="padding-right: 0.5cm;"></ion-icon>
+              
+              <ion-select color="primary" label="Deliver To:" placeholder="Select Adress" *ngFor="let items of customers">
+                <ion-select-option value="Home">Home: {{items.homeadress}}</ion-select-option>
+                <ion-select-option value="Work">Work: {{items.workadress}}</ion-select-option>
+              </ion-select> 
+               <ion-input label="Delivery instructions:" type="string" placeholder="Type here"></ion-input>
+         
+              </p>             
+          </ion-toolbar>        
+        </ion-item>
+        
+        <!--make payment-->
+        <ion-item>
+          <ion-toolbar>
+            <ion-button size="medium" slot="secondary" id="open-paymentmodal" onclick="OrderHistory(items)">Make Payment</ion-button><!--(click)="openModal()"-->
+            <p>R {{cartitems.Restaurant.price + 50}} <!--Total--></p>
+          </ion-toolbar>
+        </ion-item>
+    </ion-card> 
+  </ion-content>
+
+
+<ion-footer>
+ 
+  <ion-modal trigger="open-paymentmodal" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancel</ion-button>
+          </ion-buttons>
+          <ion-title>Make Payment</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+          <h3>Payment sucessful</h3>     
+        </ion-item>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-footer>
+

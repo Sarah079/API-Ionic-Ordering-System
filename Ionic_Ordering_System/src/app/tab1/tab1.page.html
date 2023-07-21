@@ -1,0 +1,45 @@
+<!--Home page-->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <!--page heading-->
+  <ion-header collapse="condense">
+      <ion-toolbar>
+          <ion-title size="large">Home</ion-title>
+      </ion-toolbar>
+  </ion-header>
+  <ion-content>
+      <ion-card class="ion-text-center">
+        <!--heading over orders-->
+          <img src="assets/images/MainHomeImage.png"  />
+          <ion-card-header class="ion-text-center">
+              <ion-card-title>Resturants Nearby</ion-card-title>
+              <ion-card-subtitle>Discover unique tastes near you </ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+              <ion-list>
+                <!--ng for each-->
+                  <ion-item *ngFor="let item of restaurants" >
+                      <ion-thumbnail slot="start">
+                          <img src="{{item.image}}" (click)="addTocartitems(item)"/>
+                      </ion-thumbnail>
+                      <ion-label>
+                          <h5>{{item.name}}</h5>
+                          <ion-text>{{item.type}}</ion-text>
+                          <h6>
+                              {{item.rating}} <ion-icon name="star" size="small"></ion-icon>
+                              {{item.timeaway}} mins. {{item.deal}}
+                          </h6>
+                          <ion-text color="primary" style="font-size: 14px;">{{item.distance}} kms away</ion-text>
+                      </ion-label>
+                  </ion-item>
+              </ion-list>
+          </ion-card-content>
+      </ion-card>
+  </ion-content>
+</ion-content>

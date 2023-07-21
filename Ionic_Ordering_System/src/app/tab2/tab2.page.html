@@ -1,0 +1,28 @@
+<!--Search page-->
+<!--npm i ng2-search-filter-->
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Search
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="false">
+  <ion-searchbar show-clear-button="always" (ionInput)="search()" [(ngModel)]="filterTerm"  ></ion-searchbar>
+  <ion-list>
+    <ion-item *ngFor="let item of filteredrestaurants" (click)="addTocartitems(item)">
+      <ion-thumbnail slot="start">
+        <img src="{{item.image}}"/>
+    </ion-thumbnail>
+    <ion-label>
+        <h5>{{item.name}}</h5>
+        <ion-text>{{item.type}}</ion-text>
+        <h6>
+            {{item.rating}} <ion-icon name="star" size="small"></ion-icon>
+            {{item.timeaway}} mins. {{item.deal}}
+        </h6>
+        <ion-text color="primary" style="font-size: 14px;">{{item.distance}} kms away</ion-text>
+    </ion-label></ion-item>
+  </ion-list>
+</ion-content>

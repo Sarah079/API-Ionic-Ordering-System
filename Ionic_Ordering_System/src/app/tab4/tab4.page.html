@@ -1,0 +1,134 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Account Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Account Details</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-card>
+      <!--account details-->
+      <ion-card-header>
+        <ion-toolbar *ngFor="let item of customers">
+          <ion-button slot="primary" fill="outline" id="open-modal">edit Account Details</ion-button>
+          <ion-label>            
+            <p>{{item.name}} {{item.surname}}</p>
+            <p><!--cell number-->{{item.phoneno}}| {{item.email}}</p>
+          </ion-label>
+          
+        </ion-toolbar>
+      </ion-card-header>
+
+     <ion-card-content>
+      <!--Manage adresses-->
+      <ion-item>
+        <ion-label>        
+            <ion-button color="light">
+              <ion-icon name="home" style="padding-right: 0.5cm; font-size: larger;"></ion-icon>
+              Manage Adresses
+            </ion-button>
+         <br>
+        </ion-label>
+      </ion-item>
+
+      <!--past orders-->
+      <ion-item>        
+        <ion-label >
+          <ion-card-header>
+            <ion-text color="primary" style="font-size: 16px;">PAST ORDERS</ion-text>
+          </ion-card-header> 
+        </ion-label>
+      </ion-item>
+      <!--example -->
+      <ion-item >
+        <ion-toolbar>
+          <h3>e.g. Jollof</h3>          
+          <p> e.g. work adress</p>
+          <p>R 200</p>
+          <p slot=""> delivered <ion-icon name="checkmark-circle-outline" color="success"  ></ion-icon></p>          
+          <ion-button slot="secondary" color="success" fill="outline" style="font-weight: bolder;" >Reorder</ion-button><br>
+      </ion-toolbar>
+      
+      </ion-item>
+
+      <ion-item *ngFor="let data of order">
+        <ion-toolbar>
+            <h3>{{data.Restaurant.name}}</h3>          
+            <p> {{data.customer.workadress}}</p>
+            <p>R{{data.Restaurant.price}}</p>           
+              <ion-button slot ="secondary" color="success" fill="outline" style="font-weight: bolder;" >Reorder</ion-button>
+              delivered <ion-icon name="checkmark-circle-outline" color="success" ></ion-icon>
+         </ion-toolbar>    
+      </ion-item>
+
+      <!--bottom buttons-->
+      <ion-item>
+        <ion-toolbar>
+           <ion-button slot="secondary" color="danger" fill="outline" id="open-helpmodal">Get Help</ion-button>
+        </ion-toolbar>
+      </ion-item>
+
+     </ion-card-content>
+    </ion-card>    
+  </ion-content>
+  <ion-footer>
+ <!--customer details modal-->
+    <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="cancel()">Cancel</ion-button>
+            </ion-buttons>
+            <ion-title>Make Payment</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding" *ngFor="let item of customers">
+            <ion-item>
+              <ion-input label="First Name" labelPlacement="stacked" [clearInput]="true"  value="{{item.name}}"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Last Name" labelPlacement="stacked" [clearInput]="true" value="{{item.surname}}">
+              </ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Email" labelPlacement="stacked" [clearInput]="true" value="{{item.email}}">
+              </ion-input>
+            </ion-item>
+              <ion-item>
+                <ion-input label="Phone number" labelPlacement="stacked" [clearInput]="true" value="{{item.phoneno}}">
+                </ion-input>
+              </ion-item>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+
+  <!--help modal-->
+    <ion-modal trigger="open-helpmodal" (willDismiss)="onWillDismiss($event)">
+      <ng-template>
+        <ion-header>
+          <ion-toolbar>
+            <ion-buttons slot="start">
+              <ion-button (click)="cancel()">Cancel</ion-button>
+            </ion-buttons>
+            <ion-title>Help</ion-title>
+            <ion-buttons slot="end">
+              <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+            </ion-buttons>
+          </ion-toolbar>
+        </ion-header>
+        <ion-content>
+          <h2>Some text displayed</h2>
+        </ion-content>
+      </ng-template>
+    </ion-modal>
+  </ion-footer>
+</ion-content>
